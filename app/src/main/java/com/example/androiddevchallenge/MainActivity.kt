@@ -15,19 +15,13 @@
  */
 package com.example.androiddevchallenge
 
+import android.content.res.Configuration
 import android.os.Bundle
+import android.view.View
+import android.view.Window
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.view.WindowCompat
 import androidx.navigation.compose.NavHost
@@ -35,32 +29,42 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigate
 import androidx.navigation.compose.rememberNavController
 import com.example.androiddevchallenge.ui.theme.MyTheme
-import com.example.androiddevchallenge.ui.theme.taupe100
 import dev.chrisbanes.accompanist.insets.ProvideWindowInsets
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
+
+        val isDark = isDarkTheme()
+        setLightSystemUi(window, window.decorView, !isDark)
+
         setContent {
-            MyTheme() {
+            MyTheme(isDark) {
                 MyApp()
             }
         }
+    }
+
+    private fun isDarkTheme() =
+        (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
+
+    private fun setLightSystemUi(window: Window, view: View, light: Boolean) {
+        WindowCompat.getInsetsController(window, view)?.isAppearanceLightStatusBars = light
     }
 }
 
 // Start building your app here!
 @Composable
 fun MyApp() {
-        ProvideWindowInsets {
-            val navController = rememberNavController()
-            NavHost(navController, startDestination = "welcome") {
-                composable("welcome") { WelcomeScreen(onLoginClicked = { navController.navigate("login") }) }
-                composable("login") { LoginScreen(onLoginClicked = { navController.navigate("home") }) }
-                composable("home") { HomeScreen() }
-            }
+    ProvideWindowInsets {
+        val navController = rememberNavController()
+        NavHost(navController, startDestination = "welcome") {
+            composable("welcome") { WelcomeScreen(onLoginClicked = { navController.navigate("login") }) }
+            composable("login") { LoginScreen(onLoginClicked = { navController.navigate("home") }) }
+            composable("home") { HomeScreen() }
         }
+    }
 }
 
 @Preview("Light Theme", widthDp = 360, heightDp = 640)
