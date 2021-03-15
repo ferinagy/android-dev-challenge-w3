@@ -4,17 +4,14 @@
 
 
 ## :scroll: Description
-<!--- Describe your app in one or two sentences -->
-
-
-## :bulb: Motivation and Context
-<!--- Optionally point readers to interesting parts of your submission. -->
-<!--- What are you especially proud of? -->
+The app implements the design for Android Dev Challenge week 3 (EMEA variant) in jetpack compose.
 
 
 ## :camera_flash: Screenshots
 <!-- You can add more screenshots here if you like -->
 <img src="/results/screenshot_1.png" width="260">&emsp;<img src="/results/screenshot_2.png" width="260">
+<img src="/results/screenshot_3.png" width="260">&emsp;<img src="/results/screenshot_4.png" width="260">
+<img src="/results/screenshot_5.png" width="260">&emsp;<img src="/results/screenshot_6.png" width="260">
 
 ## License
 ```
